@@ -1,0 +1,28 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+require 'amex2xero'
+require 'csv'
+
+input_filename = ARGV[0]
+output_filename = ARGV[1] || 'output.csv'
+
+HEADERS = %w[Date Amount Payee Description Reference].freeze
+
+row_processor = lambda do |input_row|
+  [
+    input_row[0].strip,
+    -input_row[2].strip.to_f,
+    input_row[3].strip,
+    input_row[4].strip,
+    input_row[1].split(': ')[1]
+  ]
+end
+
+CSV.open(output_filename, 'wb') do |csv|
+  csv << HEADERS
+
+  CSV.foreach(input_filename, headers: true) do |row|
+    csv << row_processor.call(row)
+  end
+end
