@@ -1,28 +1,32 @@
-# Amex2xero
+# Amex2Xero
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/amex2xero`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
-
-## Installation
-
-Add this line to your application's Gemfile:
-
-```ruby
-gem 'amex2xero'
-```
-
-And then execute:
-
-    $ bundle
-
-Or install it yourself as:
-
-    $ gem install amex2xero
+This tool makes it super simple to convert statement data exported from your
+American Express account into Xero's bank statement format, suitable for
+importing into Xero for reconciliation.
 
 ## Usage
 
-TODO: Write usage instructions here
+First, install the tool using RubyGems:
+
+```sh
+gem install amex2xero
+```
+
+Then, run it:
+
+```sh
+# By default, the processed file will be saved as `output.csv` in the
+# current directory
+amex2xero input_filename.csv
+
+# You can optionally specify a different path to save to
+amex2xero input_filename.csv my_custom_output_path.csv
+```
+
+## TODO
+
+* Refactor into classes, so not everything is in `exe/amex2xero`
+* Add specs
 
 ## Development
 
@@ -32,7 +36,7 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/amex2xero. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
+Bug reports and pull requests are welcome on GitHub at https://github.com/timrogers/amex2xero. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
 
 ## License
 
@@ -40,4 +44,4 @@ The gem is available as open source under the terms of the [MIT License](https:/
 
 ## Code of Conduct
 
-Everyone interacting in the Amex2xero project’s codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/[USERNAME]/amex2xero/blob/master/CODE_OF_CONDUCT.md).
+Everyone interacting in the Amex2xero project’s codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/timrogers/amex2xero/blob/master/CODE_OF_CONDUCT.md).

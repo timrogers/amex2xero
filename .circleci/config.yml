@@ -1,0 +1,41 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/ruby:2.6.5
+        environment:
+          BUNDLE_JOBS: 3
+          BUNDLE_RETRY: 3
+          BUNDLE_PATH: vendor/bundle
+    steps:
+      - checkout
+      - run:
+          name: Update bundler
+          command: gem install bundler
+      - run:
+          name: Which bundler?
+          command: bundle -v
+      - restore_cache:
+          keys:
+            - amex2xero-v1-{{ checksum "Gemfile.lock" }}
+            - amex2xero-v1-
+      - run:
+          name: Bundle Install
+          command: bundle check --path vendor/bundle || bundle install --deployment
+      - save_cache:
+          key: amex2xero-v1-{{ checksum "Gemfile.lock" }}
+          paths:
+            - vendor/bundle
+      - run:
+          name: Run rubocop
+          command: bundle exec rubocop
+      - run:
+          name: Run rspec in parallel
+          command: |
+            bundle exec rspec --profile 10 \
+                              --format RspecJunitFormatter \
+                              --out test_results/rspec.xml \
+                              --format progress \
+                              $(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)
+      - store_test_results:
+          path: test_results
