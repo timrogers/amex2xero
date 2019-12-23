@@ -22,7 +22,7 @@ end
 CSV.open(output_filename, 'wb') do |csv|
   csv << HEADERS
 
-  CSV.foreach(input_filename, headers: true) do |row|
+  CSV.foreach(input_filename, headers: false) do |row|
     csv << row_processor.call(row)
   end
 end
